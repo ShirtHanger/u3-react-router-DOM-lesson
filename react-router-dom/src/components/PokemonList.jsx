@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom' // We will turn each pokemon into a clickable link showing their details
+
 const PokemonList = (props) => {
     
     return (
