@@ -19,8 +19,8 @@ const PokemonList = (props) => {
           ))}
         </ul>
       </>
-    );
-  };
+    )
+  }
   
-  export default PokemonList;
+  export default PokemonList
   

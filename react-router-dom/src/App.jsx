@@ -3,7 +3,8 @@ import { useState } from 'react'
 import PokemonList from './components/PokemonList'
 import NavBar from './components/NavBar'
 import { Route, Routes } from 'react-router-dom' // Enables client-sided routes, NO page refresh 
-import PokemonDetails from './components/PokemonDetails';
+import PokemonDetails from './components/PokemonDetails'
+import PokemonForm from './components/PokemonForm'
 
 
 const pokemonArray = [
@@ -17,6 +18,11 @@ const pokemonArray = [
 const App = () => {
   const [pokemon, setPokemon] = useState(pokemonArray)
 
+  function addPokemon(newPokemonData) {
+    newPokemonData._id = pokemon.length + 1
+    setPokemon([...pokemon, newPokemonData]) // Appends new pokemon to the list
+  }
+
   return (
     <>
       <h1>Pokemon!</h1>
@@ -26,11 +32,18 @@ const App = () => {
         <Route path="/" element={<h2>Home Page</h2>} />
         {/* When you click on the "Pokemon" link, list of pokemon shows! */}
         <Route path="/pokemon" element={<PokemonList pokemon={pokemon} />} />
+
+        {/* Route for updating Pokemon list (CREATE) */}
+        <Route 
+        path="/pokemon/new" 
+        element={<PokemonForm addPokemon={addPokemon} />} /> {/* Pass addPokemon down into form, so we can update the array! */}
+
         <Route /* Route for specific pokemon details, when you click on Pokemon Link */
           path="/pokemon/:pokemonId"
           element={<PokemonDetails pokemon={pokemon} />}
         />
-        
+
+
         {/* CATCH-ALL DEFAULT ROUTE, for errors */}
         <Route path="*" element={<h2>Whoops, nothing here!</h2>} />
       </Routes>
